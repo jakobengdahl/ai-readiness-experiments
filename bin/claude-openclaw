@@ -1,0 +1,15 @@
+#!/bin/sh
+set -eu
+
+TOKEN_FILE="${CLAUDE_OPENCLAW_TOKEN_FILE:-$HOME/.claude/openclaw-oauth-token}"
+
+if [ -z "${CLAUDE_CODE_OAUTH_TOKEN:-}" ]; then
+  if [ ! -f "$TOKEN_FILE" ]; then
+    echo "claude-openclaw: missing token file: $TOKEN_FILE" >&2
+    exit 1
+  fi
+  CLAUDE_CODE_OAUTH_TOKEN="$(cat "$TOKEN_FILE")"
+  export CLAUDE_CODE_OAUTH_TOKEN
+fi
+
+exec claude "$@"
