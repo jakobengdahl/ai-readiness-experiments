@@ -1,0 +1,34 @@
+#!/bin/sh
+set -eu
+
+if [ "$#" -lt 1 ]; then
+  echo "Usage: claude-repo-task '<task prompt>'" >&2
+  exit 1
+fi
+
+BOUNDARY_PROMPT=$(cat <<'EOF'
+You are working inside a repository that may sit inside a larger private workspace.
+
+Treat only normal project files intended for the repository as in scope for edits, commits, summaries, and pull requests.
+
+The following are private workspace context unless the user explicitly asks otherwise:
+- MEMORY.md
+- memory/
+- AGENTS.md
+- SOUL.md
+- USER.md
+- TOOLS.md
+- .openclaw/
+- local auth files, tokens, credentials, and orchestration notes
+
+Do not commit, summarize into repo documentation, mention in PR text, or otherwise expose those private workspace files.
+
+Before making changes, reason about whether each touched file belongs in the public repository.
+Only modify files that are clearly part of the intended repository work.
+EOF
+)
+
+exec /root/.openclaw/workspace/bin/claude-openclaw --print "$BOUNDARY_PROMPT
+
+Task:
+$1"

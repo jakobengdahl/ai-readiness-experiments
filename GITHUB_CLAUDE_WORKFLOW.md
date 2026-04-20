@@ -24,6 +24,8 @@ This wrapper:
 
 Use this when Claude should perform bounded repo work and return results, not full internal conversation transcripts.
 
+When delegating repo work to Claude, always include an explicit boundary instruction that workspace-private files are not part of the public repository unless requested. In particular, Claude should treat files such as `MEMORY.md`, `memory/`, `AGENTS.md`, `SOUL.md`, `USER.md`, `TOOLS.md`, `.openclaw/`, and other local orchestration notes as private workspace context, not repository content to commit, expose, summarize into repo files, or include in PR text unless Jakob explicitly asks for that.
+
 ## GitHub execution pattern
 
 Current GitHub workflow supports:
@@ -55,6 +57,8 @@ Working pattern:
 5. open a PR against `main`
 6. merge when approved or requested
 
+Before committing, confirm that only intended public-repo files are staged.
+
 ## Short command patterns Jakob can use
 
 Examples of short requests that should now be enough:
@@ -71,5 +75,6 @@ Examples of short requests that should now be enough:
 - Keep external/project-facing text in English by default.
 - Prefer concise, scoped Claude tasks instead of sending whole conversations through Claude.
 - Return summaries, results, errors, and links here, not raw Claude interaction logs.
+- Workspace memory, identities, and orchestration files are private by default and must not be treated as repository content unless explicitly requested.
 - The current PAT was shared in chat and should be rotated after setup is stabilized.
 - A future improvement is to install `gh` and move to a cleaner GitHub CLI auth flow.
