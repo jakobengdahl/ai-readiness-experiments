@@ -6,7 +6,7 @@ This workspace is set up so the main OpenClaw agent can orchestrate both GitHub 
 
 - Main orchestration stays in OpenClaw on Codex.
 - Claude Code is used as a controlled coding sub-agent when helpful.
-- GitHub access currently works through HTTPS with a PAT-backed remote/API flow.
+- GitHub access currently works through authenticated GitHub CLI (`gh`) plus git over HTTPS.
 - External-facing repository text, commit messages, branch names, PR titles, and PR bodies should be written in English.
 - Conversation with Jakob in this chat can remain in Swedish.
 
@@ -36,10 +36,10 @@ Current GitHub workflow supports:
 - creating pull requests
 - updating repo settings through the GitHub API when needed
 
-Because `gh` is not currently installed in this environment, GitHub operations are handled through:
+Because `gh` is installed in this environment, GitHub operations can be handled through:
 
+- `gh` for authentication, repo inspection, PR handling, and API-backed operations
 - `git` for local branch/commit/push work
-- GitHub REST API for PR creation and repo metadata operations
 
 ## Repository conventions for this project
 

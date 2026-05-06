@@ -1,0 +1,5 @@
+# Example denylist entries
+# Copy to redaction-denylist.local.txt (ignored by git) and add names/terms
+# that should never appear in the shareable wiki.
+example-person-name
+internal-project-codename
