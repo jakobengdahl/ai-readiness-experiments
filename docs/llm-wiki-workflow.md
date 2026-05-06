@@ -17,6 +17,7 @@ Keep these outside the public wiki and preferably outside the repository or in i
 
 Recommended local-only directories:
 - `workspace-private/ingest-staging/`
+- `workspace-private/project-context/`
 - `workspace-private/notes/`
 - `workspace-private/tmp/`
 - `llm-wiki-private/`
@@ -31,12 +32,15 @@ This is what can be mirrored to GitHub:
 
 ## Planned ingestion process later
 1. receive source via Telegram or pull from Google Drive
-2. store it in private staging first
-3. inspect for names/secrets/private context
-4. create a sanitized source artifact if needed
-5. copy only the sanitized version into `llm-wiki/raw/`
-6. synthesize wiki pages in `entities/`, `concepts/`, `comparisons/`, or `queries/`
-7. run the sanitization check before commit/push
+2. decide whether it belongs to:
+   - `workspace-private/project-context/` for material about the project/container around the wiki work, or
+   - `workspace-private/ingest-staging/` for material that may later become wiki source content
+3. store it in private staging first
+4. inspect for names/secrets/private context
+5. create a sanitized source artifact if needed
+6. copy only the sanitized version into `llm-wiki/raw/`
+7. synthesize wiki pages in `entities/`, `concepts/`, `comparisons/`, or `queries/`
+8. run the sanitization check before commit/push
 
 ## Obsidian: how necessary is it?
 
